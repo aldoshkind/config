@@ -12,8 +12,10 @@
 
 #define ADN_SINGLETON_GETTER(class_name)     public: static class_name &instance(){static class_name c; return c;}
 
-#define ADN_SINGLETON_CONSTR_AND_GETTER(class_name)     private: class_name (): config_base(adn::config::get_prefix(typeid(*this).name())){init();} \
+#define ADN_SINGLETON_CONSTR_AND_GETTER_EXPLICIT_PREFIX(class_name, prefix)     private: class_name (): config_base(prefix){init();} \
                                                         ADN_SINGLETON_GETTER(class_name)
+
+#define ADN_SINGLETON_CONSTR_AND_GETTER(class_name)     ADN_SINGLETON_CONSTR_AND_GETTER_EXPLICIT_PREFIX(class_name, adn::config::get_prefix(typeid(*this).name()))
 
 namespace adn::config
 {
