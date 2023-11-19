@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.1)
+project(adn_config_examples_simple)
+
+set(CMAKE_CXX_STANDARD 17)
+
+get_filename_component(ADN_CONFIG_DEFAULT_INCLUDE_PATH "${CMAKE_CURRENT_LIST_DIR}/../../include" ABSOLUTE)
+if (NOT DEFINED ADN_CONFIG_INCLUDE_PATH)
+    message("ADN_CONFIG_INCLUDE_PATH is not defined. Using default value ${ADN_CONFIG_DEFAULT_INCLUDE_PATH}")
+    set(ADN_CONFIG_INCLUDE_PATH "${ADN_CONFIG_DEFAULT_INCLUDE_PATH}")
+endif()
+
+get_filename_component(ADN_CONFIG_NLOHMANN_JSON_DEFAULT_INCLUDE_PATH "${CMAKE_CURRENT_LIST_DIR}/../../include" ABSOLUTE)
+if (NOT DEFINED ADN_CONFIG_NLOHMANN_JSON_INCLUDE_PATH)
+    message("ADN_CONFIG_NLOHMANN_JSON_INCLUDE_PATH is not defined. Using default value ${ADN_CONFIG_NLOHMANN_JSON_DEFAULT_INCLUDE_PATH}")
+    set(ADN_CONFIG_NLOHMANN_JSON_INCLUDE_PATH "${ADN_CONFIG_NLOHMANN_JSON_DEFAULT_INCLUDE_PATH}")
+endif()
+
+include_directories(${ADN_CONFIG_INCLUDE_PATH} ${ADN_CONFIG_NLOHMANN_JSON_INCLUDE_PATH})
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DADN_CONFIG_USE_DUMMY_LOGGER=1")
+
+add_executable(adn_config_examples_simple
+                main.cpp
+                )
+
